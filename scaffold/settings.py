@@ -19,6 +19,8 @@ DEBUG = env('DEBUG')
 # allowed urls
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
+# for debug toolbar
+INTERNAL_IPS = env.list('INTERNAL_IPS', default=['127.0.0.1'])
 # CORS: Requires django-cors-headers
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
@@ -55,6 +57,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "django_cotton",
     "django_cotton_ui",
+    "debug_toolbar",
 ]
 
 APPS = getAppNames()
@@ -72,6 +75,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
     # Add the account middleware:
     "allauth.account.middleware.AccountMiddleware",
@@ -169,7 +173,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'scaffold/static/staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'scaffold/static/media')
 
-USE_AZURE = env('USE_AZURE')
+USE_AZURE = env.bool('USE_AZURE')
 if USE_AZURE:
     STORAGES = {
         "default": {
