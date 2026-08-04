@@ -1,0 +1,2 @@
+# scaffold
+Starter django project
