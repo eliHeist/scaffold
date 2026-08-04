@@ -1,0 +1,21 @@
+[project]
+name = "scaffold"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "django>=6.0.7",
+    "django-allauth[mfa]>=65.18.0",
+    "django-cotton-ui>=0.3.2",
+    "django-debug-toolbar>=7.0.0",
+    "django-environ>=0.14.0",
+    "django-extensions>=4.1",
+    "django-filter>=26.1",
+    "django-htmx>=1.28.0",
+    "django-ninja>=1.6.2",
+    "django-storages[azure]>=1.14.6",
+    "django-tables2>=3.0.0",
+    "fpdf2>=2.8.7",
+    "whitenoise>=6.12.0",
+]
