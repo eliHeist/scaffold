@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     "django_cotton",
     "django_cotton_ui",
     "debug_toolbar",
+    'django_filters',
+    "django_tables2",
 ]
 
 APPS = getAppNames()
