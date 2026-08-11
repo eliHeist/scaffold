@@ -9,6 +9,7 @@ from scaffold.appsConfig import getAppUrls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
+    path("mfa/", include("allauth.mfa.urls")),
 ]
 
 urlpatterns += getAppUrls()

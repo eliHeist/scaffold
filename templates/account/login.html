@@ -1,0 +1,41 @@
+{% load i18n %}
+{% load allauth account %}
+
+<c-layout.base>
+    <div class="login-container">
+        <h2>{% trans "Sign In" %}</h2>
+    
+        <!-- Standard Password Form -->
+        <form method="post" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">{% trans "Log In with Password" %}</button>
+        </form>
+    
+        {% if PASSKEY_LOGIN_ENABLED %}
+        <hr>
+        <h3>{% trans "Or use a Passkey" %}</h3>
+    
+        <!-- Hidden form the passkey button submits to -->
+        <form id="mfa_login" method="post" action="{% url 'mfa_login_webauthn' %}">
+            {% csrf_token %}
+            <input type="hidden" name="credential" id="id_credential">
+        </form>
+    
+        <button type="submit" form="mfa_login" id="passkey_login">
+            {% trans "Sign in with a Passkey" %}
+        </button>
+        {% endif %}
+    </div>
+
+    {{ block.super }}
+    {% if PASSKEY_LOGIN_ENABLED %}
+        {% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %}
+    {% endif %}
+</c-layout.base>
+
+{% block content %}
+{% endblock %}
+
+{% block extra_body %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load allauth_mfa %}
+
+{% block content %}
+<h2>Add a New Passkey</h2>
+
+<form id="webauthn_add_form" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="button" id="webauthn_add_btn">Register Passkey / Security Key</button>
+</form>
+
+{% webauthn_client %}
+<script>
+    document.getElementById('webauthn_add_btn').addEventListener('click', function() {
+        allauth.mfa.webauthn.signup({
+            form: document.getElementById('webauthn_add_form'),
+            data: {{ js_data|safe }}
+        });
+    });
+</script>
+{% endblock %}
