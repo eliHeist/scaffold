@@ -168,12 +168,12 @@ SESSION_COOKIE_AGE = 24 * 60 * 60
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'scaffold/static/dist/'),
+    os.path.join(BASE_DIR, 'static/dist/'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'scaffold/static/staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/staticfiles')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'scaffold/static/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
 USE_AZURE = env.bool('USE_AZURE')
 if USE_AZURE:
