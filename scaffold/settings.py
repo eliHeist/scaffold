@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize', # Required for allauth MFA templates
 
+    'django.forms',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -156,7 +157,9 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # Options: 'mandatory', 'optional', 'no
 MFA_SUPPORTED_TYPES = ["totp", "webauthn", "recovery_codes"]
 MFA_PASSKEY_LOGIN_ENABLED = True  # Allows passwordless login via WebAuthn Autofill / Button
 
-MFA_WEBAUTHN_ALLOW_INSECURE_ORIGIN = DEBUG # Only if testing on HTTP non-localhost IPs
+MFA_WEBAUTHN_ALLOW_INSECURE_ORIGIN = True # Only if testing on HTTP non-localhost IPs
+
+MFA_WEBAUTHN_RP_ID = "localhost"
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_SAVE_EVERY_REQUEST = False

@@ -2,30 +2,91 @@
 {% load allauth account %}
 
 <c-layout.base>
-    <div class="login-container">
-        <h2>{% trans "Sign In" %}</h2>
-    
-        <!-- Standard Password Form -->
-        <form method="post" action="{% url 'account_login' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">{% trans "Log In with Password" %}</button>
-        </form>
-    
-        {% if PASSKEY_LOGIN_ENABLED %}
-        <hr>
-        <h3>{% trans "Or use a Passkey" %}</h3>
-    
-        <!-- Hidden form the passkey button submits to -->
-        <form id="mfa_login" method="post" action="{% url 'mfa_login_webauthn' %}">
-            {% csrf_token %}
-            <input type="hidden" name="credential" id="id_credential">
-        </form>
-    
-        <button type="submit" form="mfa_login" id="passkey_login">
-            {% trans "Sign in with a Passkey" %}
-        </button>
-        {% endif %}
+    <div class="grid place-content-center h-screen">
+        <c-ui.card class="w-8/10 sm:min-w-md">
+            <h2>{% trans "Sign In" %}</h2>
+        
+            <!-- Standard Password Form -->
+            <form method="post" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                <!-- {{ form.as_p }} -->
+                <c-ui.field>
+                    <c-ui.label for="{{ form.email.id_for_label }}">
+                        {{ form.email.label }}
+                    </c-ui.label>
+        
+                    <c-ui.input
+                        type="{{ form.email.field.widget.input_type|default:'text' }}"
+                        name="{{ form.email.name }}"
+                        id="{{ form.email.id_for_label }}"
+                        value="{{ form.email.value|default:'' }}"
+                        placeholder="{{ form.email.field.widget.attrs.placeholder|default:'' }}"
+                        required="{{ form.email.field.required }}"
+                    />
+        
+                    {% if form.email.errors %}
+                        <c-ui.error>{{ form.email.errors.0 }}</c-ui.error>
+                    {% endif %}
+        
+                    {% if form.email.help_text %}
+                        <c-ui.description>{{ form.email.help_text }}</c-ui.description>
+                    {% endif %}
+                </c-ui.field>
+                <c-ui.field>
+                    <c-ui.label for="{{ form.password.id_for_label }}">
+                        {{ form.password.label }}
+                    </c-ui.label>
+        
+                    <c-ui.input
+                        type="{{ form.password.field.widget.input_type|default:'text' }}"
+                        name="{{ form.password.name }}"
+                        id="{{ form.password.id_for_label }}"
+                        value="{{ form.password.value|default:'' }}"
+                        placeholder="{{ form.password.field.widget.attrs.placeholder|default:'' }}"
+                        required="{{ form.password.field.required }}"
+                    />
+        
+                    {% if form.password.errors %}
+                        <c-ui.error>{{ form.password.errors.0 }}</c-ui.error>
+                    {% endif %}
+        
+                    {% if form.password.help_text %}
+                        <c-ui.description>{{ form.password.help_text }}</c-ui.description>
+                    {% endif %}
+                </c-ui.field>
+                <c-ui.field>
+                    <c-ui.checkbox
+                        name="{{ form.remember.name }}"
+                        id="{{ form.remember.id_for_label }}"
+                        value="{{ form.remember.value|default:'' }}"
+                        label="{{ form.remember.label }}"
+                    />
+        
+                    {% if form.remember.errors %}
+                        <c-ui.error>{{ form.remember.errors.0 }}</c-ui.error>
+                    {% endif %}
+        
+                    {% if form.remember.help_text %}
+                        <c-ui.description>{{ form.remember.help_text }}</c-ui.description>
+                    {% endif %}
+                </c-ui.field>
+                <c-ui.button type="submit">{% trans "Log In with Password" %}</c-ui.button>
+            </form>
+        
+            {% if PASSKEY_LOGIN_ENABLED %}
+            <h3>{% trans "Or use a Passkey" %}</h3>
+        
+            <!-- Hidden form the passkey button submits to -->
+            <form id="mfa_login" method="post" action="{% url 'mfa_login_webauthn' %}">
+                {% csrf_token %}
+                <input type="hidden" name="credential" id="id_credential">
+            </form>
+        
+            <c-ui.button type="submit" form="mfa_login" id="passkey_login">
+                {% trans "Sign in with a Passkey" %}
+            </c-ui.button>
+            {% endif %}
+        </c-ui.card>
     </div>
 
     {{ block.super }}
