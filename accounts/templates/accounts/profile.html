@@ -1,0 +1,43 @@
+{% load i18n %}
+
+<c-layout>
+	<main class="mx-auto max-w-3xl px-4 py-12">
+        <c-ui.card>
+			<div class="mb-8">
+				<h1 class="text-2xl font-bold text-slate-900">{% translate "Profile" %}</h1>
+				<p class="mt-1 text-slate-600">{% translate "Manage your account information and security settings." %}</p>
+			</div>
+
+			<dl class="divide-y divide-slate-200">
+				<div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="font-medium text-slate-700">{% translate "Name" %}</dt>
+					<dd class="mt-1 text-slate-900 sm:col-span-2 sm:mt-0">{{ user.get_full_name|default:user.username }}</dd>
+				</div>
+				<div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="font-medium text-slate-700">{% translate "Username" %}</dt>
+					<dd class="mt-1 text-slate-900 sm:col-span-2 sm:mt-0">{{ user.username }}</dd>
+				</div>
+				<div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+					<dt class="font-medium text-slate-700">{% translate "Email address" %}</dt>
+					<dd class="mt-1 text-slate-900 sm:col-span-2 sm:mt-0">{{ user.email }}</dd>
+				</div>
+			</dl>
+
+			<div class="mt-8 flex flex-wrap gap-3 border-t border-slate-200 pt-6">
+				<a href="{% url 'account_change_password' %}">
+                    <c-ui.button>
+                        {% translate "Change password" %}
+                    </c-ui.button>
+				</a>
+				<form method="post" action="{% url 'account_logout' %}">
+					{% csrf_token %}
+					<button type="submit">
+                        <c-ui.button>
+                            {% translate "Log out" %}
+                        </c-ui.button>
+					</button>
+				</form>
+			</div>
+        </c-ui.card>
+	</main>
+</c-layout>
