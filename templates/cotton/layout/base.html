@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="{% static 'index.css' %}">
     <link rel="icon" href="{% static 'assets/app icon@.5x.png' %}">
     <!-- <script src="{% static 'js/main.js' %}"></script> -->
-    <script defer src="{% static 'django_cotton_ui/cotton-ui.min.js' %}"></script>
-    <script src="{% static 'index.js' %}" defer></script>
 </head>
-<body class="bg-bg text-foreground">
+<body class="bg-bg text-fg">
     <c-ui.toast.container />
     {{ slot }}
+    <script src="{% static 'index.js' %}" defer></script>
+    <script defer src="{% static 'django_cotton_ui/cotton-ui.min.js' %}"></script>
 </body>
 </html>

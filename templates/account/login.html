@@ -3,25 +3,25 @@
 
 <c-layout.base>
     <div class="grid place-content-center h-screen">
-        <c-ui.card class="w-8/10 sm:min-w-md">
+        <c-ui.card class="w-8/10 sm:min-w-md grid">
             <h2>{% trans "Sign In" %}</h2>
         
             <!-- Standard Password Form -->
-            <form method="post" action="{% url 'account_login' %}">
+            <form method="post" action="{% url 'account_login' %}" class="grid gap-2">
                 {% csrf_token %}
                 <!-- {{ form.as_p }} -->
                 <c-ui.field>
-                    <c-ui.label for="{{ form.email.id_for_label }}">
-                        {{ form.email.label }}
+                    <c-ui.label for="{{ form.login.id_for_label }}">
+                        {{ form.login.label }}
                     </c-ui.label>
         
                     <c-ui.input
-                        type="{{ form.email.field.widget.input_type|default:'text' }}"
-                        name="{{ form.email.name }}"
-                        id="{{ form.email.id_for_label }}"
-                        value="{{ form.email.value|default:'' }}"
-                        placeholder="{{ form.email.field.widget.attrs.placeholder|default:'' }}"
-                        required="{{ form.email.field.required }}"
+                        type="{{ form.login.field.widget.input_type|default:'text' }}"
+                        name="{{ form.login.name }}"
+                        id="{{ form.login.id_for_label }}"
+                        value="{{ form.login.value|default:'' }}"
+                        placeholder="{{ form.login.field.widget.attrs.placeholder|default:'' }}"
+                        required="{{ form.login.field.required }}"
                     />
         
                     {% if form.email.errors %}
@@ -58,7 +58,6 @@
                     <c-ui.checkbox
                         name="{{ form.remember.name }}"
                         id="{{ form.remember.id_for_label }}"
-                        value="{{ form.remember.value|default:'' }}"
                         label="{{ form.remember.label }}"
                     />
         
@@ -70,18 +69,18 @@
                         <c-ui.description>{{ form.remember.help_text }}</c-ui.description>
                     {% endif %}
                 </c-ui.field>
-                <c-ui.button type="submit">{% trans "Log In with Password" %}</c-ui.button>
+                <c-ui.button variant="primary" type="submit">{% trans "Log In with Password" %}</c-ui.button>
             </form>
         
             {% if PASSKEY_LOGIN_ENABLED %}
-            <h3>{% trans "Or use a Passkey" %}</h3>
+            <h3 class="sr-only">{% trans "Or use a Passkey" %}</h3>
         
             <!-- Hidden form the passkey button submits to -->
-            <form id="mfa_login" method="post" action="{% url 'mfa_login_webauthn' %}">
+            <form id="mfa_login" method="post" action="{% url 'mfa_login_webauthn' %}" class="mt-4">
                 {% csrf_token %}
                 <input type="hidden" name="credential" id="id_credential">
             </form>
-        
+            
             <c-ui.button type="submit" form="mfa_login" id="passkey_login">
                 {% trans "Sign in with a Passkey" %}
             </c-ui.button>
@@ -94,9 +93,3 @@
         {% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %}
     {% endif %}
 </c-layout.base>
-
-{% block content %}
-{% endblock %}
-
-{% block extra_body %}
-{% endblock %}

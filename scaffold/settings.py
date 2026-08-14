@@ -151,7 +151,7 @@ AUTH_USER_MODEL = "accounts.User"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username' # Model has the field, but it's optional
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
 ACCOUNT_LOGIN_METHODS = {'email'}  # Enforce Email-only login
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # Options: 'mandatory', 'optional', 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'none' # Options: 'mandatory', 'optional', 'none'
 
 # --- MFA & PASSKEY CONFIGURATION ---
 MFA_SUPPORTED_TYPES = ["totp", "webauthn", "recovery_codes"]

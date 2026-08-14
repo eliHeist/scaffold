@@ -5,11 +5,19 @@ from django.contrib import admin
 from django.urls import path, include
 
 from scaffold.appsConfig import getAppUrls
+from scaffold.registrar import registrar
+
+from accounts.views import accounts_router
+
+registrar.include_many(
+    accounts_router,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path("mfa/", include("allauth.mfa.urls")),
+    path("", include(registrar.get_patterns())),
 ]
 
 urlpatterns += getAppUrls()

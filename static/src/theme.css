@@ -11,19 +11,6 @@
     --color-accent-content: var(--color-rose-600);
     --color-accent-foreground: #ffffff;
 
-    --color-foreground: #dbe5f1;
-
-    --color-primary: var(--color-rose-700);
-    --color-dark: #030e19;
-    --color-light: #1a2b3d;
-    --color-lighter: #c0d6f2;
-    --color-white: #ffffff;
-    --color-warning: #ffb300;
-    --color-red: #ff003c;
-    --color-green: #13ff1e;
-    --color-danger: #ff003c;
-    --color-success: #00c853;
-
     --font-display: "Google Sans", sans-serif;
 
     --color-muted: var(--color-ink-500);           /* secondary text (text-muted): meta lines, descriptions, timestamps */
@@ -32,19 +19,16 @@
     --color-surface: color-mix(in oklab, var(--color-bg), white var(--surface-level));  /* raised surfaces, derived from --color-bg + --surface-level */
     --color-input-bg: color-mix(in oklab, var(--color-ink-700), white var(--surface-level));                 /* form fields: border-defined in light; .dark lifts it */
 
-    --color-bg: var(--color-ink-800);
+    --color-bg: var(--color-ink-100);
 
     /* Radius is split by role, not by size, and kept in its own namespace so it never
        collides with Tailwind's --radwius-md/-lg scale or your own rounded-* usage.
        Declared in @theme so the `rounded-control` / `rounded-box` utilities are generated. */
     --radius-control: 1rem;   /* form controls: inputs, segments → rounded-control */
-    --radius-box: 1.5rem;         /* structural: cards, dialogs, menus → rounded-box */
+    --radius-box: 1rem;         /* structural: cards, dialogs, menus → rounded-box */
     --radius-button: var(--radius-control);  /* buttons → rounded-button; defaults to the control radius, set to a large value for pill buttons */
 
-    --surface-level: 10%;
-
-    --color-card-border: var(--color-ink-600);
-    --color-box-border: var(--color-ink-600);
+    --surface-level: 100%;
 
     /* Extra neutral/gray scales beyond Tailwind's five, so the theme builder's Gray base
        can remap zinc to a warmer/cooler neutral. Only emitted when referenced (the theme
@@ -97,28 +81,33 @@
     --color-olive-900: oklch(22.8% 0.013 107.4);
     --color-olive-950: oklch(15.3% 0.006 107.1);
 
-    --color-ink-50: var(--color-mauve-50);
-    --color-ink-100: var(--color-mauve-100);
-    --color-ink-200: var(--color-mauve-200);
-    --color-ink-300: var(--color-mauve-300);
-    --color-ink-400: var(--color-mauve-400);
-    --color-ink-500: var(--color-mauve-500);
-    --color-ink-600: var(--color-mauve-600);
-    --color-ink-700: var(--color-mauve-700);
-    --color-ink-800: var(--color-mauve-800);
-    --color-ink-900: var(--color-mauve-900);
-    --color-ink-950: var(--color-mauve-950);
+    --color-ink-50: var(--color-slate-50);
+    --color-ink-100: var(--color-slate-100);
+    --color-ink-200: var(--color-slate-200);
+    --color-ink-300: var(--color-slate-300);
+    --color-ink-400: var(--color-slate-400);
+    --color-ink-500: var(--color-slate-500);
+    --color-ink-600: var(--color-slate-600);
+    --color-ink-700: var(--color-slate-700);
+    --color-ink-800: var(--color-slate-800);
+    --color-ink-900: var(--color-slate-900);
+    --color-ink-950: var(--color-slate-950);
 }
 
 @layer theme {
     :root {
-        --color-bg: var(--color-ink-50);       /* page base */
+        --color-bg: var(--color-ink-100);       /* page base */
+        --color-fg: var(--color-ink-900);
+
+        /* --color-card-border: var(--color-ink-600); */
+        --color-box-border: var(--color-ink-200);
+
         /* --surface-level drives the raised-surface derivation in @theme (--color-surface):
            higher = more contrast off the page. Light is flat white; .dark lifts subtly. */
         --surface-level: 100%;
 
-        --shadow-input: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-        --shadow-box: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-input: 0 1px 2px 0 rgb(0 0 0 / 0);
+        --shadow-box: 0 1px 2px 0 rgb(0 0 0 / 0);
 
         --focus-ring-width: 3px;
         --focus-ring-offset: 0px;
@@ -127,8 +116,13 @@
     }
 
     .dark {
-        --color-bg: var(--color-ink-950);  /* override to ink-900 for a softer dark, ink-800 for soft */
-        --surface-level: 10%;  /* subtle lift off the dark page */
+        --color-bg: var(--color-ink-900);  /* override to ink-900 for a softer dark, ink-800 for soft */
+        --color-fg: var(--color-ink-100);
+
+        /* --color-card-border: var(--color-ink-600); */
+        --color-box-border: var(--color-ink-800);
+
+        --surface-level: 20%;  /* subtle lift off the dark page */
         --color-box-border: var(--color-ink-700);
         --color-muted: var(--color-ink-400);
         /* Inputs lift off any surface (page or card) via a translucent lighten. */
