@@ -18,8 +18,15 @@
 					<dd class="mt-1 text-slate-900 sm:col-span-2 sm:mt-0">{{ user.username }}</dd>
 				</div>
 				<div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-					<dt class="font-medium text-slate-700">{% translate "Email address" %}</dt>
-					<dd class="mt-1 text-slate-900 sm:col-span-2 sm:mt-0">{{ user.email }}</dd>
+					<dt class="font-medium text-slate-700">{% translate "Emails" %}</dt>
+					<dd class="mt-1 text-slate-900 sm:col-span-2 sm:mt-0">
+                        <div class="flex justify-between items-center gap-6">
+                            {{ user.email }}
+                            <a href="{% url 'account_email' %}">
+                                <c-ui.button variant="text">{% translate "Manage email addresses" %}</c-ui.button>
+                            </a>
+                        </div>
+                    </dd>
 				</div>
 			</dl>
 
